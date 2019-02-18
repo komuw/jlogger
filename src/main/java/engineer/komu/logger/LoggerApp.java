@@ -10,10 +10,22 @@ run this as:
 */
 package engineer.komu.logger;
 
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.SimpleFormatter;
+
 public class LoggerApp {
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println("LoggerApp");
-        System.out.println();
+
+        ConsoleHandler handler = new ConsoleHandler();
+        handler.setLevel(Level.FINEST);
+
+        SimpleFormatter myFormatter = new SimpleFormatter();
+        handler.setFormatter(myFormatter);
+
+        LogRecord myRecord = new LogRecord(Level.FINEST, "hello world");// LogRecord(Level level, String msg)
+        handler.publish(myRecord);
+
     }
 }
