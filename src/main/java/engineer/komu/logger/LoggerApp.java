@@ -24,7 +24,7 @@ public class LoggerApp {
         SimpleFormatter myFormatter = new SimpleFormatter();
         handler.setFormatter(myFormatter);
 
-        LogRecord myRecord = new LogRecord(Level.FINEST, "hello world");// LogRecord(Level level, String msg)
+        LogRecord myRecord = new LogRecord(Level.FINEST, "hello world");
         handler.publish(myRecord);
 
     }
