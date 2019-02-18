@@ -42,5 +42,8 @@ public class LoggerApp {
 
         System.out.println("bound: " + bound);
 
+        String output = String.format("%s", persist);
+        LogRecord yo = new LogRecord(Level.FINE, output);
+        handler.publish(yo);
     }
 }
