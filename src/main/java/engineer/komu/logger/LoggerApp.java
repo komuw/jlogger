@@ -15,7 +15,15 @@ import java.util.logging.LogRecord;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.SimpleFormatter;
 
+import java.util.HashMap;
+
 public class LoggerApp {
+    private static HashMap bound = new HashMap();
+
+    public static void bind(HashMap b) {
+        bound.putAll(b);
+    }
+
     public static void main(String[] args) {
 
         ConsoleHandler handler = new ConsoleHandler();
@@ -26,6 +34,13 @@ public class LoggerApp {
 
         LogRecord myRecord = new LogRecord(Level.FINEST, "hello world");
         handler.publish(myRecord);
+
+        HashMap persist = new HashMap();
+        persist.put("environment", "canary");
+        persist.put("customer", 12345244);
+        bind(persist);
+
+        System.out.println("bound: " + bound);
 
     }
 }
