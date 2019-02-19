@@ -16,31 +16,33 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.SimpleFormatter;
 
 import java.util.HashMap;
+import java.util.Map;
+
+class MyHash<K, V> extends HashMap<K, V> {
+    @Override
+    public final String toString() {
+        return super.toString().replace("=", ":");
+    }
+}
 
 public class LoggerApp {
-    private static HashMap bound = new HashMap();
+    private static MyHash bound = new MyHash();
 
-    public static void bind(HashMap b) {
+    public static void bind(MyHash b) {
         bound.putAll(b);
     }
 
     public static void main(String[] args) {
-
         ConsoleHandler handler = new ConsoleHandler();
         handler.setLevel(Level.FINEST);
 
         SimpleFormatter myFormatter = new SimpleFormatter();
         handler.setFormatter(myFormatter);
 
-        LogRecord myRecord = new LogRecord(Level.FINEST, "hello world");
-        handler.publish(myRecord);
-
-        HashMap persist = new HashMap();
+        MyHash persist = new MyHash();
         persist.put("environment", "canary");
         persist.put("customer", 12345244);
         bind(persist);
-
-        System.out.println("bound: " + bound);
 
         String output = String.format("%s", persist);
         LogRecord yo = new LogRecord(Level.FINE, output);
